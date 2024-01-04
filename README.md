@@ -5,7 +5,7 @@
 <br>
 <p align="center">
     <em>
-      An easy-to-use CLI app for effortlessly synchronizing your <br> Google Cloud Platform Pub/Sub environment with your local machine.
+      An easy-to-use CLI app for effortlessly managing your local Pub/Sub environment <br> and automatically syncing it with your Google Cloud Pub/Sub configuration.
     </em>
 </p>
 <br>
