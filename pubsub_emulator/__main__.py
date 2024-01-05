@@ -2,7 +2,7 @@ import json
 
 from typer import Option, Typer
 
-from managers import SubscriptionManager, TopicManager
+from pubsub_emulator.managers import SubscriptionManager, TopicManager
 
 app = Typer()
 
