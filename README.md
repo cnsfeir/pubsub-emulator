@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/cnsfeir/pubsub-emulator/assets/58790635/192a6fc2-4195-460b-befa-2a0c37b5ee1c" width="506"/>
+  <img src="https://github.com/cnsfeir/pubsub-emulator/assets/58790635/11c8f1ba-96ac-4381-91a2-743230cef20e" width="506"/>
 </div>
 
 <br>
