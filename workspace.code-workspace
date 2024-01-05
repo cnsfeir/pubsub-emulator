@@ -15,12 +15,6 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
     },
-  
-    "[json]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.tabSize": 2,
-      "editor.formatOnSave": true
-    },
 
     "[python]": {
       "editor.defaultFormatter": "ms-python.black-formatter",
@@ -47,17 +41,8 @@
       "compounds": []
     },
 
-    // Locales
-    "i18n-ally.displayLanguage": "es",
-    "i18n-ally.keystyle": "nested",
-    "i18n-ally.localesPaths": ["src/locales"],
-
     // Removes git warning at startup
     "git.detectSubmodulesLimit": 9999,
-    "git.branchProtection": ["master", "main", "development"],
-
-    // Removes Makefile warning at startup
-    "makefile.extensionOutputFolder": "./.vscode"
   },
   "extensions": {
     "recommendations": [
