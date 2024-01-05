@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pubsub-emulator"
-version = "0.0.1"
+version = "0.0.2"
 description = "An easy-to-use CLI app for effortlessly managing your local Pub/Sub environment and automatically syncing it with your Google Cloud Pub/Sub configuration."
 authors = ["Cristobal Sfeir <hello@cristobalsfeir.com>"]
 packages = [{ include = "pubsub_emulator" }]
