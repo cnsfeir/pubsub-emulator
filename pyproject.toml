@@ -3,6 +3,7 @@ name = "pubsub-emulator"
 version = "0.0.1"
 description = "An easy-to-use CLI app for effortlessly synchronizing your Google Cloud Platform Pub/Sub environment with your local machine."
 authors = ["Cristobal Sfeir <hello@cristobalsfeir.com>"]
+packages = [{ include = "pubsub_emulator" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
