@@ -1,8 +1,8 @@
 from google.cloud.pubsub import PublisherClient, SubscriberClient
 from google.cloud.pubsub_v1.types import FieldMask, Subscription
 
-from constants import PROJECT_ID
-from utils import to_snakecase, update_dictionary
+from pubsub_emulator.constants import PROJECT_ID
+from pubsub_emulator.utils import to_snakecase, update_dictionary
 
 MAX_ATTEMPTS = 5
 

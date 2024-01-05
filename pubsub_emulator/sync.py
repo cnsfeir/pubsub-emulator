@@ -2,7 +2,7 @@ import json
 
 from google.cloud.pubsub import PublisherClient, SubscriberClient
 
-from utils import to_snakecase
+from pubsub_emulator.utils import to_snakecase
 
 
 def import_topics() -> None:

@@ -1,6 +1,6 @@
 from google.cloud.pubsub import PublisherClient
 
-from constants import PROJECT_ID
+from pubsub_emulator.constants import PROJECT_ID
 
 
 class TopicManager:
