@@ -2,7 +2,7 @@ import json
 
 from google.cloud.pubsub import PublisherClient, SubscriberClient
 
-from pubsub_emulator.utils import to_snakecase
+from pubsub_emulator.utils import to_snakecase, translate_url
 
 
 def import_topics() -> None:
@@ -26,6 +26,8 @@ def import_subscriptions() -> None:
 
     with SubscriberClient() as subscriber:
         for subscription in subscriptions:
+            if configuration := subscription.get("pushConfig"):
+                configuration["pushEndpoint"] = translate_url(configuration["pushEndpoint"])
             subscriber.create_subscription(request=to_snakecase(subscription))
 
 
