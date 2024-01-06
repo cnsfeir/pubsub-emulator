@@ -27,6 +27,12 @@ def delete_topic(id_topic: str) -> None:
 
 
 @app.command()
+def delete_all_topics() -> None:
+    """Deletes all Pub/Sub topics."""
+    TopicManager.delete_all()
+
+
+@app.command()
 def create_subscription(request: str) -> None:
     """Creates a new Pub/Sub subscription."""
     SubscriptionManager.create(json.loads(request))
@@ -49,6 +55,12 @@ def fetch_subscriptions(id_subscription: str = Option(None), id_topic: str = Opt
 def delete_subscription(id_subscription: str) -> None:
     """Deletes a Pub/Sub subscription."""
     SubscriptionManager.delete(id_subscription)
+
+
+@app.command()
+def delete_all_subscriptions() -> None:
+    """Deletes all Pub/Sub subscriptions."""
+    SubscriptionManager.delete_all()
 
 
 if __name__ == "__main__":

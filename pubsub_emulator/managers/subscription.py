@@ -41,6 +41,13 @@ class SubscriptionManager:
             subscription_path = subscriber.subscription_path(PROJECT_ID, id_subscription)
             subscriber.delete_subscription(request={"subscription": subscription_path})
 
+    @staticmethod
+    def delete_all() -> None:
+        """Deletes all Pub/Sub subscriptions."""
+        with SubscriberClient() as subscriber:
+            for subsciption in subscriber.list_subscriptions(request={"project": f"projects/{PROJECT_ID}"}):
+                subscriber.delete_subscription(request={"subscription": subsciption.name})
+
     @classmethod
     def fetch(cls, id_subscription: str | None = None, id_topic: str | None = None) -> list[Subscription]:
         """Fetches all Pub/Sub subscriptions in a topic or project."""

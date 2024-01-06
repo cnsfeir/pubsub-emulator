@@ -27,3 +27,10 @@ class TopicManager:
         with PublisherClient() as publisher:
             topic_path = publisher.topic_path(PROJECT_ID, id_topic)
             publisher.delete_topic(request={"topic": topic_path})
+
+    @staticmethod
+    def delete_all() -> None:
+        """Deletes all Pub/Sub topics"""
+        with PublisherClient() as publisher:
+            for topic in publisher.list_topics(request={"project": f"projects/{PROJECT_ID}"}):
+                publisher.delete_topic(request={"topic": topic.name})
