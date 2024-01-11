@@ -19,3 +19,12 @@ The inspiration for `pubsub-emulator` stemmed from the challenges faced when int
 1. Import topics and subscriptions from a GCP project to a local Pub/Sub environment.
 2. Automatically translate production push endpoints into local URLs.
 3. Provide a simple CRUD interface for managing topics and subscriptions.
+
+## Prerequisites
+
+- Python `≥3.11` [^1]
+- [Poetry](https://python-poetry.org/)
+- [Google Cloud Pub/Sub emulator](https://cloud.google.com/pubsub/docs/emulator)
+
+[^1]: I recommend using [Pyenv](https://github.com/pyenv/pyenv) for managing Python versions
+
