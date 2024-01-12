@@ -53,32 +53,27 @@ echo 'SERVICE_MAPPINGS_PATH=service-mappings.json' >> .env
 
 # Setup
 
-### 1. Install Dependencies
 Ensure that all necessary dependencies are installed.
 ```bash
 poetry install
 ```
 
-### 2. Set Project ID Environment Variable
 Set the `PROJECT_ID` environment variable to your Google Cloud project ID.
 ```bash
 echo 'PROJECT_ID=my-project' >> .env
 ```
 
-### 3. Google Cloud Authentication (Optional)
-Optionally, if you need to select the correct project in your gcloud CLI and authenticate, run this command:
+**Optionally**, select the correct project in your `gcloud` CLI and authenticate.
 ```bash
 make login
 ```
 
-### 4. Start the Emulator
-Open a new terminal tab or window (since this command can't be executed in the background) and start the Pub/Sub emulator.
+Start the Pub/Sub emulator by executing this command in a new terminal tab or window. [^2]
 ```bash
 make start
 ```
 
-### 5. Sync Cloud Configuration
-Import your Pub/Sub configuration into your local emulator.
+Import your cloud Pub/Sub configuration into your local emulator.
 ```bash
 make sync
 ```
@@ -96,4 +91,5 @@ make sync
 ## Contact
 
 [^1]: I recommend using [Pyenv](https://github.com/pyenv/pyenv) for managing Python versions
+[^2]: Since this command can't be executed in the background
 
