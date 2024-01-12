@@ -3,7 +3,7 @@ import re
 
 from caseconverter import snakecase
 
-from pubsub_emulator.constants import LOCAL_BASE_URL, LOCAL_URLS_PATH, SERVICE_NAME_PATTERN
+from pubsub_emulator.constants import LOCAL_BASE_URL, SERVICE_MAPPINGS_PATH, SERVICE_NAME_PATTERN
 
 
 def to_snakecase(original: dict) -> dict:
@@ -40,10 +40,10 @@ def translate_url(url: str) -> str:
     service = match.group(1)
     endpoint = url[len(match.group(0)) :]
 
-    with open(LOCAL_URLS_PATH, "r", encoding="utf-8") as file:
-        local_urls = json.load(file)
+    with open(SERVICE_MAPPINGS_PATH, "r", encoding="utf-8") as file:
+        service_mappings = json.load(file)
 
-    if not (port := local_urls.get(service)):
+    if not (port := service_mappings.get(service)):
         raise ValueError(f"Unknown local URL for service {service}")
 
     return LOCAL_BASE_URL.format(port=port) + endpoint
