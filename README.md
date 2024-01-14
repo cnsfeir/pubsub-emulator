@@ -80,7 +80,7 @@ $(gcloud beta emulators pubsub env-init)
 
 <br>
 
-## Usage
+# Usage
 
 ### Importing Cloud Pub/Sub Configuration
 
@@ -109,12 +109,12 @@ When creating or updating a subscription with `pubsub-emulator`, it's necessary 
 
 <br>
 
-## License
+# License
 This project is licensed under the [CC BY-NC 4.0 DEED](https://creativecommons.org/licenses/by-nc/4.0/deed.en) (Attribution-NonCommercial 4.0 International), which essentially means you are free to share and adapt the material in this repository, provided you give appropriate credit, indicate if changes were made, and, most importantly, **do not use it for commercial purposes**.
 
 <br>
 
-## Contact
+# Contact
 
 Feel free to reach out through one of the following channels:
 
