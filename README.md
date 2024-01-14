@@ -84,7 +84,7 @@ $(gcloud beta emulators pubsub env-init)
 
 ### Importing Cloud Pub/Sub Configuration
 
-Synchronize your cloud configuration with the local emulator to ensure that your local environment mirrors the cloud setup but with the corresponding local URLs.
+Synchronize your cloud configuration with the local emulator to ensure that your local environment mirrors the cloud setup with the appropriate local URLs.
 ```bash
 make sync
 ```
