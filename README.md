@@ -63,14 +63,9 @@ Set the `PROJECT_ID` environment variable to your Google Cloud project ID.
 echo 'PROJECT_ID=my-project' >> .env
 ```
 
-**Optionally**, if you haven't done so already, select the correct project in your `gcloud` CLI and authenticate.
-```bash
-make login
-```
-
 Start the Pub/Sub emulator by executing this command in a new terminal tab or window. [^2]
 ```bash
-make start
+gcloud beta emulators pubsub start
 ```
 
 Set up the required environment variables for the Pub/Sub emulator connection to work. [^3]
