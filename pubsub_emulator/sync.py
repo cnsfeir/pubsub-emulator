@@ -3,6 +3,7 @@ import json
 from google.cloud.pubsub import PublisherClient, SubscriberClient
 
 from pubsub_emulator.utils import to_snakecase, translate_url
+from pubsub_emulator.middlewares import check_connection
 
 
 def import_topics() -> None:
@@ -32,5 +33,6 @@ def import_subscriptions() -> None:
 
 
 if __name__ == "__main__":
+    check_connection()
     import_topics()
     import_subscriptions()

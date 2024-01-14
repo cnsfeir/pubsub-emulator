@@ -1,9 +1,16 @@
 import json
 
 from typer import Option, Typer, Argument
+from pubsub_emulator.middlewares import check_connection
 from pubsub_emulator.managers import SubscriptionManager, TopicManager
 
 app = Typer()
+
+
+@app.callback()
+def main() -> None:
+    """Checks the connection to the Pub/Sub emulator."""
+    check_connection()
 
 
 @app.command()
