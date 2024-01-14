@@ -1,6 +1,6 @@
 <br>
 <div align="center">
-  <img src="https://github.com/cnsfeir/pubsub-emulator/assets/58790635/cb2b4707-e4a5-40c3-a302-2313167a1e99" width="506"/>
+  <img src="https://github.com/cnsfeir/pubsub-emulator/assets/58790635/d39b8ed2-746e-462c-9a9c-c79ede421a63" width="506"/>
 </div>
 
 <br>
