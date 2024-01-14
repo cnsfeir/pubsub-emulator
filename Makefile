@@ -4,7 +4,8 @@ export
 .PHONY: \
   linters \
   login \
-  start
+  start \
+  sync
 
 linters:
 	@poetry run python -m black --check --line-length=120 .
@@ -16,5 +17,5 @@ login:
 	@gcloud config configurations activate $(PROJECT_ID)
 	@gcloud auth application-default login
 
-start:
-	@gcloud beta emulators pubsub start --project=$(PROJECT_ID)
+sync:
+	@sh pubsub_emulator/sync.sh
