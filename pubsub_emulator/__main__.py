@@ -1,8 +1,10 @@
 import json
 
-from typer import Option, Typer, Argument
-from pubsub_emulator.middlewares import check_connection
+from typer import Argument, Context, Option, Typer
+
 from pubsub_emulator.managers import SubscriptionManager, TopicManager
+from pubsub_emulator.middlewares import check_connection
+from pubsub_emulator.utils import Printer, to_snakecase, translate_url
 
 app = Typer()
 
@@ -23,7 +25,7 @@ def create_topic(id_topic: str = Argument(help="The ID of the new topic")) -> No
 def fetch_topics() -> None:
     """Fetches all topics."""
     for topic in TopicManager.fetch():
-        print(topic)
+        Printer.print_topic(topic)
 
 
 @app.command()
@@ -62,7 +64,7 @@ def fetch_subscriptions(
 ) -> None:
     """Fetches all subscriptions in a topic or project."""
     for subscription in SubscriptionManager.fetch(id_subscription, id_topic):
-        print(subscription)
+        Printer.print_subscription(subscription)
 
 
 @app.command()
