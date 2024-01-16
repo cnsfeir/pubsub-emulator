@@ -10,9 +10,35 @@ app = Typer()
 
 
 @app.callback()
-def main() -> None:
-    """Checks the connection to the Pub/Sub emulator."""
-    check_connection()
+def main(context: Context) -> None:
+    """
+    Checks the connection to the Pub/Sub emulator.
+    """
+    try:
+        check_connection()
+    except OSError as error:
+        Printer.print_error(error)
+        context.exit()
+
+
+@app.command(hidden=True)
+def sync() -> None:
+    """
+    Syncs the local Pub/Sub emulator with the cloud Pub/Sub configuration.
+    """
+    with open("topics.json", "r", encoding="utf-8") as file:
+        topics = json.load(file)
+
+    for topic in topics:
+        TopicManager.create(request=to_snakecase(topic))
+
+    with open("subscriptions.json", "r", encoding="utf-8") as file:
+        subscriptions = json.load(file)
+
+    for subscription in subscriptions:
+        if configuration := subscription.get("pushConfig"):
+            configuration["pushEndpoint"] = translate_url(configuration["pushEndpoint"])
+        SubscriptionManager.create(request=to_snakecase(subscription))
 
 
 @app.command()

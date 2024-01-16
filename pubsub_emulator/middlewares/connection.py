@@ -1,5 +1,5 @@
 import os
-from socket import socket, AF_INET, SOCK_STREAM
+from socket import AF_INET, SOCK_STREAM, socket
 
 
 def check_connection() -> None:

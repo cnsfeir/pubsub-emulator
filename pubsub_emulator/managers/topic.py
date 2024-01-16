@@ -1,4 +1,5 @@
 from google.cloud.pubsub import PublisherClient
+from google.cloud.pubsub_v1.types import Topic
 
 from pubsub_emulator.constants import PROJECT_ID
 
@@ -9,14 +10,19 @@ class TopicManager:
     """
 
     @staticmethod
-    def create(id_topic: str) -> None:
-        """Creates a new Pub/Sub topic."""
+    def create(id_topic: str | None = None, request: dict | None = None) -> Topic:
+        """
+        Creates a new Pub/Sub topic.
+        """
+        if not id_topic and not request:
+            raise ValueError("Either id_topic or request must be provided.")
+
         with PublisherClient() as publisher:
             topic_path = publisher.topic_path(PROJECT_ID, id_topic)
-            publisher.create_topic(request={"name": topic_path})
+            return publisher.create_topic(request=request or {"name": topic_path})
 
     @staticmethod
-    def fetch() -> list[str]:
+    def fetch() -> list[Topic]:
         """Fetches all Pub/Sub topics"""
         with PublisherClient() as publisher:
             return publisher.list_topics(request={"project": f"projects/{PROJECT_ID}"})

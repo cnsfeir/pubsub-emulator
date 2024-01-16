@@ -13,13 +13,13 @@ class SubscriptionManager:
     """
 
     @staticmethod
-    def create(request: dict) -> None:
+    def create(request: dict) -> Subscription:
         """Creates a new Pub/Sub subscription."""
         with SubscriberClient() as subscriber:
-            subscriber.create_subscription(request=to_snakecase(request))
+            return subscriber.create_subscription(request=to_snakecase(request))
 
     @classmethod
-    def update(cls, id_subscription: str, update: dict) -> None:
+    def update(cls, id_subscription: str, update: dict) -> Subscription:
         """Updates an existing Pub/Sub subscription."""
         update = to_snakecase(update)
         paths = set(update.keys())
@@ -29,7 +29,7 @@ class SubscriptionManager:
             subscription = subscriber.get_subscription(subscription=path)
 
             mapping = update_dictionary(original=Subscription.to_dict(subscription), new=update)
-            subscriber.update_subscription(
+            return subscriber.update_subscription(
                 subscription=Subscription(mapping),
                 update_mask=FieldMask(paths=paths),
             )
