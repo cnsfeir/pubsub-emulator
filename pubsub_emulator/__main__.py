@@ -1,7 +1,9 @@
 import json
+import sys
 
 from typer import Argument, Context, Option, Typer
 
+from pubsub_emulator.constants import HELP_FLAG
 from pubsub_emulator.middlewares import check_connection
 from pubsub_emulator.repositories import SubscriptionRepository, TopicRepository
 from pubsub_emulator.utils import Printer, to_snakecase, translate_url
@@ -15,7 +17,8 @@ def main(context: Context) -> None:
     Checks the connection to the Pub/Sub emulator.
     """
     try:
-        check_connection()
+        if HELP_FLAG not in sys.argv:
+            check_connection()
     except OSError as error:
         Printer.print_error(error)
         context.exit()
