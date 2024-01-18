@@ -7,9 +7,9 @@ from pubsub_emulator.utils import to_snakecase, update_dictionary
 MAX_ATTEMPTS = 5
 
 
-class SubscriptionManager:
+class SubscriptionRepository:
     """
-    Manages Pub/Sub subscriptions.
+    Manages the retrieval and persistence of the Pub/Sub subscriptions.
     """
 
     @staticmethod

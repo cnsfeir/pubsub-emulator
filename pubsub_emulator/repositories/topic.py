@@ -4,9 +4,9 @@ from google.cloud.pubsub_v1.types import Topic
 from pubsub_emulator.constants import PROJECT_ID
 
 
-class TopicManager:
+class TopicRepository:
     """
-    Manages Pub/Sub topics.
+    Manages the retrieval and persistence of the Pub/Sub topics.
     """
 
     @staticmethod

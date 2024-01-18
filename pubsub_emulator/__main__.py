@@ -2,8 +2,8 @@ import json
 
 from typer import Argument, Context, Option, Typer
 
-from pubsub_emulator.managers import SubscriptionManager, TopicManager
 from pubsub_emulator.middlewares import check_connection
+from pubsub_emulator.repositories import SubscriptionRepository, TopicRepository
 from pubsub_emulator.utils import Printer, to_snakecase, translate_url
 
 app = Typer()
@@ -21,49 +21,49 @@ def main(context: Context) -> None:
         context.exit()
 
 
-@app.command(hidden=True)
-def sync() -> None:
+@app.command()
+def load(
+    configuration: str = Argument(help="The path to the configuration file to load"),
+    translate: bool = Option(False, hidden=True),
+) -> None:
     """
-    Syncs the local Pub/Sub emulator with the cloud Pub/Sub configuration.
+    Imports a Pub/Sub configuration from a JSON file into the emulator.
     """
-    with open("topics.json", "r", encoding="utf-8") as file:
-        topics = json.load(file)
+    with open(configuration, "r", encoding="utf-8") as file:
+        data = json.load(file)
 
-    for topic in topics:
-        TopicManager.create(request=to_snakecase(topic))
+    for topic in data.get("topics"):
+        TopicRepository.create(request=to_snakecase(topic))
 
-    with open("subscriptions.json", "r", encoding="utf-8") as file:
-        subscriptions = json.load(file)
-
-    for subscription in subscriptions:
-        if configuration := subscription.get("pushConfig"):
-            configuration["pushEndpoint"] = translate_url(configuration["pushEndpoint"])
-        SubscriptionManager.create(request=to_snakecase(subscription))
+    for subscription in data.get("subscriptions"):
+        if translate and (push_configuration := subscription.get("pushConfig")):
+            push_configuration["pushEndpoint"] = translate_url(push_configuration["pushEndpoint"])
+        SubscriptionRepository.create(request=to_snakecase(subscription))
 
 
 @app.command()
 def create_topic(id_topic: str = Argument(help="The ID of the new topic")) -> None:
     """Creates a new topic."""
-    TopicManager.create(id_topic)
+    TopicRepository.create(id_topic)
 
 
 @app.command()
 def fetch_topics() -> None:
     """Fetches all topics."""
-    for topic in TopicManager.fetch():
+    for topic in TopicRepository.fetch():
         Printer.print_topic(topic)
 
 
 @app.command()
 def delete_topic(id_topic: str = Argument(help="The ID of the topic to delete")) -> None:
     """Deletes a topic."""
-    TopicManager.delete(id_topic)
+    TopicRepository.delete(id_topic)
 
 
 @app.command()
 def delete_all_topics() -> None:
     """Deletes all topics."""
-    TopicManager.delete_all()
+    TopicRepository.delete_all()
 
 
 @app.command()
@@ -71,7 +71,7 @@ def create_subscription(
     request: str = Argument(help="""The JSON request for the new subscription."""),
 ) -> None:
     """Creates a new subscription."""
-    SubscriptionManager.create(json.loads(request))
+    SubscriptionRepository.create(json.loads(request))
 
 
 @app.command()
@@ -80,7 +80,7 @@ def update_subscription(
     update: str = Argument(help="The JSON request for the updates to the subscription"),
 ) -> None:
     """Updates a new subscription."""
-    SubscriptionManager.update(id_subscription, json.loads(update))
+    SubscriptionRepository.update(id_subscription, json.loads(update))
 
 
 @app.command()
@@ -89,20 +89,20 @@ def fetch_subscriptions(
     id_topic: str = Option(None, help="The ID of the topic to fetch"),
 ) -> None:
     """Fetches all subscriptions in a topic or project."""
-    for subscription in SubscriptionManager.fetch(id_subscription, id_topic):
+    for subscription in SubscriptionRepository.fetch(id_subscription, id_topic):
         Printer.print_subscription(subscription)
 
 
 @app.command()
 def delete_subscription(id_subscription: str = Argument(help="The ID of the subscription to delete")) -> None:
     """Deletes a subscription."""
-    SubscriptionManager.delete(id_subscription)
+    SubscriptionRepository.delete(id_subscription)
 
 
 @app.command()
 def delete_all_subscriptions() -> None:
     """Deletes all subscriptions."""
-    SubscriptionManager.delete_all()
+    SubscriptionRepository.delete_all()
 
 
 if __name__ == "__main__":
