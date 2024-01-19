@@ -6,7 +6,7 @@ from typer import Argument, Context, Option, Typer
 from pubsub_emulator.constants import HELP_FLAG
 from pubsub_emulator.middlewares import check_connection
 from pubsub_emulator.repositories import SubscriptionRepository, TopicRepository
-from pubsub_emulator.utils import Printer, to_snakecase, translate_url
+from pubsub_emulator.utils import JSONFileHandler, Printer, to_snakecase, translate_url
 
 app = Typer()
 
@@ -26,14 +26,13 @@ def main(context: Context) -> None:
 
 @app.command()
 def load(
-    configuration: str = Argument(help="The path to the configuration file to load"),
+    path: str = Argument(help="The path to the configuration file to load"),
     translate: bool = Option(False, hidden=True),
 ) -> None:
     """
     Imports a Pub/Sub configuration from a JSON file into the emulator.
     """
-    with open(configuration, "r", encoding="utf-8") as file:
-        data = json.load(file)
+    data = JSONFileHandler.load(path)
 
     for topic in data["topics"]:
         TopicRepository.create(request=to_snakecase(topic))
