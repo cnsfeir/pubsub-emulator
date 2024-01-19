@@ -1,3 +1,5 @@
+from typing import Annotated, Self
+
 from google.cloud.pubsub import PublisherClient
 from google.cloud.pubsub_v1.types import Topic
 
@@ -40,3 +42,8 @@ class TopicRepository:
         with PublisherClient() as publisher:
             for topic in publisher.list_topics(request={"project": f"projects/{PROJECT_ID}"}):
                 publisher.delete_topic(request={"topic": topic.name})
+
+    @classmethod
+    def export_all(cls) -> list[Annotated[dict, Self]]:
+        """Exports all Pub/Sub topics."""
+        return [Topic.to_dict(topic) for topic in cls.fetch()]

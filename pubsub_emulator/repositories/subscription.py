@@ -1,3 +1,5 @@
+from typing import Annotated, Self
+
 from google.cloud.pubsub import PublisherClient, SubscriberClient
 from google.cloud.pubsub_v1.types import FieldMask, Subscription
 
@@ -76,3 +78,8 @@ class SubscriptionRepository:
         """Fetches all Pub/Sub subscriptions in a project."""
         with SubscriberClient() as subscriber:
             return subscriber.list_subscriptions(request={"project": f"projects/{PROJECT_ID}"})
+
+    @classmethod
+    def export_all(cls) -> list[Annotated[dict, Self]]:
+        """Exports all Pub/Sub subscriptions."""
+        return [Subscription.to_dict(subscription) for subscription in cls.fetch()]
