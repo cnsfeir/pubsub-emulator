@@ -1,9 +1,10 @@
 import json
 import sys
 
+import arrow
 from typer import Argument, Context, Option, Typer
 
-from pubsub_emulator.constants import HELP_FLAG
+from pubsub_emulator.constants import CONFIGURATIONS_DIRECTORY, HELP_FLAG, TIMESTAMP_FORMAT
 from pubsub_emulator.middlewares import check_connection
 from pubsub_emulator.repositories import SubscriptionRepository, TopicRepository
 from pubsub_emulator.utils import JSONFileHandler, Printer, to_snakecase, translate_url
@@ -22,6 +23,17 @@ def main(context: Context) -> None:
     except OSError as error:
         Printer.print_error(error)
         context.exit()
+
+
+@app.command()
+def save(title: str = Argument(help="A title for the configuration file")) -> None:
+    """
+    Exports the Pub/Sub configuration from the emulator into a JSON file.
+    """
+    data = {"topics": TopicRepository.export_all(), "subscriptions": SubscriptionRepository.export_all()}
+    filename = f"{arrow.utcnow().format(TIMESTAMP_FORMAT)}-{title.replace(' ', '_')}.json"
+    path = f"{CONFIGURATIONS_DIRECTORY}/{filename}"
+    JSONFileHandler.dump(path, data)
 
 
 @app.command()
