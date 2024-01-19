@@ -35,10 +35,10 @@ def load(
     with open(configuration, "r", encoding="utf-8") as file:
         data = json.load(file)
 
-    for topic in data.get("topics"):
+    for topic in data["topics"]:
         TopicRepository.create(request=to_snakecase(topic))
 
-    for subscription in data.get("subscriptions"):
+    for subscription in data["subscriptions"]:
         if translate and (push_configuration := subscription.get("pushConfig")):
             push_configuration["pushEndpoint"] = translate_url(push_configuration["pushEndpoint"])
         SubscriptionRepository.create(request=to_snakecase(subscription))
